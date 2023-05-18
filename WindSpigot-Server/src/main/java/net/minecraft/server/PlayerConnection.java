@@ -1199,7 +1199,7 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
 					if (!WindSpigotConfig.packetSendingList.contains(packetId)) accept = true;
 				}
 			}
-			if (WindSpigotConfig.packetSendingDelay > 0) accept = true;
+			if (WindSpigotConfig.packetSendingDelay <= 0) accept = false;
 
 			if (accept) {
 				new Thread(new Runnable() {
