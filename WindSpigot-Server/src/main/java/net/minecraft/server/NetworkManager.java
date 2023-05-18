@@ -234,6 +234,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 			}
 	        // WindSpigot end
 			this.dispatchPacket(packet, null, Boolean.TRUE);
+			//WindSpigot.getInstance().getDelayThread().addPacket(this, packet, null, Boolean.TRUE);
 		} else {
 			this.j.writeLock().lock();
 
