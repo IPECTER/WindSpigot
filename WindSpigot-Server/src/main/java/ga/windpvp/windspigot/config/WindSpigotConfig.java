@@ -6,6 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.Level;
@@ -383,5 +385,36 @@ public class WindSpigotConfig {
 	}
 	
 	public static boolean improvedHitDetection;
-	
+	public static int packetSendingDelay;
+
+	private static void packetSendingDelay() {
+		packetSendingDelay = getInt("settings.packet-sending.delay", 0);
+		c.addComment("settings.packet-sending.delay", "Delay MilliSeconds");
+	}
+
+	public static boolean packetSendingFilter;
+
+	public static void packetSendingFilter() {
+		packetSendingFilter = getBoolean("settings.packet-sending.filter", true);
+		c.addComment("settings.packet-sending.filter", "Enable White&Black list filtering");
+	}
+
+	public static boolean packetSendingWhiteOrBlack;
+
+	public static void packetSendingWhiteOrBlack() {
+		packetSendingWhiteOrBlack = getBoolean("settings.packet-sending.white-or-black", true);
+	}
+
+	public static List<Integer> packetSendingList = new ArrayList<>();
+
+	public static void packetSendingList() {
+		List<String> defaultList = Arrays.asList("0x12");
+		List<String> list = getList("settings.packet-sending.list", defaultList);
+		for (String str : list) {
+			try {
+				packetSendingList.add(Integer.decode(str));
+			} catch (Exception ignore) {}
+		}
+		c.addComment("settings.packet-sending.list", "Packet ID (https://wiki.vg/index.php?title=Protocol&oldid=7368#Clientbound_2)");
+	}
 }
